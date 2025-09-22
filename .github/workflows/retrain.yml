@@ -2,6 +2,9 @@ name: Retrain pipeline
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'Task8/data/bandwidth_prediction_dataset.csv'   # trigger when dataset changes
+      - 'Task8/**'      
   schedule:
     - cron: '0 2 * * *'   # daily at 02:00 UTC
   workflow_dispatch: {}
@@ -20,11 +23,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd Task8
           pip install -r requirements.txt
 
       
       - name: Run retrain monitor
-        run: python -m src.retrain_monitor
+        run: |
+          cd Task8
+          python -m src.retrain_monitor
 
       - name: Send email on success
         if: success()
