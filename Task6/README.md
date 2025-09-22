@@ -8,15 +8,13 @@ A simple backend service that periodically fetches camera health data and stores
 - a small SQLite DB that persists health snapshots.  
 
 > **Note:** This project uses **dummy (simulated) camera data** in `health_fetcher.py`. Replace that logic with real camera API calls to use with real devices.
-
----
+ 
 
 ##  Features
 - FastAPI backend (HTTP API)  
 - SQLite database for storing camera health history  
 - Background scheduler
-- Manual trigger endpoint to fetch health (`/health/fetch`)  
----
+- Manual trigger endpoint to fetch health (`/health/fetch`)   
 
 ## Project Structure
 
