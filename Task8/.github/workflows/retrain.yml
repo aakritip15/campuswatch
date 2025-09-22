@@ -1,0 +1,53 @@
+name: Retrain pipeline
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'   # daily at 02:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      
+      - name: Run retrain monitor
+        run: python -m src.retrain_monitor
+
+      - name: Send email on success
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME}}
+          password: ${{ secrets.EMAIL_PASSWORD}}
+          subject: "Retrain workflow succeeded"
+          body: "The model retraining finished successfully. Check the artifacts."
+          to: aaakriti.p.03@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+
+      - name: Send email on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Retrain workflow failed"
+          body: "The retraining pipeline failed. Please check logs."
+          to: your@email.com
+          from: ${{ secrets.EMAIL_USERNAME }}
