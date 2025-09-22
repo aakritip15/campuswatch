@@ -1,0 +1,11 @@
+{
+  "alert_id": "CW-20250921-1000",
+  "timestamp": "2025-09-21T19:31:50.159188",
+  "severity": "CRITICAL",
+  "threat_type": "weapon_detected",
+  "location": "Admin Building Entrance",
+  "confidence_score": 0.95,
+  "camera_id": "CAM-01",
+  "person_count": 2,
+  "duration_seconds": 30
+}
