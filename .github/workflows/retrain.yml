@@ -5,8 +5,8 @@ on:
     paths:
       - 'Task8/data/bandwidth_prediction_dataset.csv'   # trigger when dataset changes
       - 'Task8/**'      
-  schedule:
-    - cron: '0 2 * * *'   # daily at 02:00 UTC
+  # schedule:
+  #   - cron: '0 2 * * *'   # daily at 02:00 UTC
   workflow_dispatch: {}
 
 jobs:
